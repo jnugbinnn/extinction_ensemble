@@ -1627,6 +1627,10 @@
   width: var(--cover-size);
 }
 
+.experience--fixed.experience--back-cover .book-cover {
+  width: var(--page23-width);
+}
+
 .experience--fixed .controller-panel {
   width: min(92vw, 1060px);
   grid-template-columns: minmax(var(--active-card-width), var(--active-card-width)) minmax(0, 1fr);
