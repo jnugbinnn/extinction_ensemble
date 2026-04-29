@@ -486,7 +486,7 @@
 
 .controller-panel {
   position: fixed;
-  left: calc(50% + 1.55rem);
+  left: calc(50% + var(--active-card-width));
   top: calc(var(--book-center-y) + (var(--page-height) / 2) + clamp(3.85rem, 7.9vh, 4.7rem));
   transform: translateX(-50%) scale(var(--controller-panel-scale));
   transform-origin: center center;
