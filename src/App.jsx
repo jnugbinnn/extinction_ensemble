@@ -71,7 +71,14 @@ const createInitialAnimalProgress = () =>
     return acc
   }, {})
 
+const STAGE_WIDTH = 1440
+const STAGE_HEIGHT = 900
+
 function App() {
+  const [viewportSize, setViewportSize] = useState({
+    width: window.innerWidth,
+    height: window.innerHeight,
+  })
   const [stage, setStage] = useState('cover')
   const [currentLeftPage, setCurrentLeftPage] = useState(FIRST_SPREAD_LEFT_PAGE)
   const [isTurning, setIsTurning] = useState(false)
@@ -101,6 +108,18 @@ function App() {
         window.clearTimeout(endTimerRef.current)
       }
     }
+  }, [])
+
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportSize({
+        width: window.innerWidth,
+        height: window.innerHeight,
+      })
+    }
+
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
   }, [])
 
   const openBook = () => {
@@ -249,6 +268,7 @@ function App() {
   const canGoPrevious = (stage === 'spread' || stage === 'back-cover') && !isTurning
   const canGoNext = (stage === 'cover' || (stage === 'spread' && rightPageNumber < TOTAL_PAGES)) && !isTurning
   const isAnimalActiveSpread = stage === 'spread' && Boolean(activeAnimalName)
+  const stageScale = Math.min(viewportSize.width / STAGE_WIDTH, viewportSize.height / STAGE_HEIGHT)
   const activeAnimalClassMap = {
     'African Forest Elephant': 'animal-card--tone-elephant',
     'Bornean Orangutan': 'animal-card--tone-orangutan',
@@ -387,7 +407,12 @@ function App() {
   }
 
   return (
-    <main className={`experience experience--${stage}`}>
+    <div className="app-viewport">
+      <div className="app-stage-scale" style={{ transform: `scale(${stageScale})` }}>
+        <main
+          className={`experience experience--fixed experience--${stage}`}
+          style={{ width: `${STAGE_WIDTH}px`, height: `${STAGE_HEIGHT}px` }}
+        >
       <p className="logo-mark">
         <span>EXTINCTION</span>
         <span>ENSEMBLE</span>
@@ -605,7 +630,9 @@ function App() {
           </div>
         </aside>
       </div>
-    </main>
+        </main>
+      </div>
+    </div>
   )
 }
 

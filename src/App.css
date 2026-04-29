@@ -1,3 +1,17 @@
+.app-viewport {
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.app-stage-scale {
+  transform-origin: center center;
+  will-change: transform;
+}
+
 .experience {
   position: relative;
   min-height: 100vh;
@@ -30,6 +44,25 @@
   background: #050505;
   color: #f4f4f4;
   overflow: hidden;
+}
+
+.experience--fixed {
+  min-height: 0;
+  overflow: hidden;
+  --brand-top: 18px;
+  --brand-size: 22px;
+  --cover-size: 300px;
+  --arrow-size: 52px;
+  --nav-arrow-width: 56px;
+  --nav-arrow-height: 64px;
+  --logo-left-edge: 20px;
+  --left-arrow-tip-offset: 13px;
+  --arrow-gap: 110px;
+  --left-arrow-extra: 26px;
+  --right-arrow-gap-from-controller: 28px;
+  --controller-panel-width: 270px;
+  --controller-panel-right: 26px;
+  --left-arrow-x: 26px;
 }
 
 .logo-mark {
@@ -454,7 +487,7 @@
 .controller-panel {
   position: fixed;
   left: calc(50% + 1.55rem);
-  top: calc(var(--book-center-y) + (var(--page-height) / 2) + clamp(1.35rem, 3vh, 1.75rem));
+  top: calc(var(--book-center-y) + (var(--page-height) / 2) + clamp(3.85rem, 7.9vh, 4.7rem));
   transform: translateX(-50%) scale(var(--controller-panel-scale));
   transform-origin: center center;
   width: min(92vw, 1060px);
@@ -1582,4 +1615,30 @@
     width: var(--active-card-width);
     flex-basis: var(--active-card-width);
   }
+}
+
+/* Fixed-stage mode overrides responsive adaptations */
+.experience--fixed .stage-layout {
+  min-height: 100%;
+  padding: 28px 40px 185px;
+}
+
+.experience--fixed .book-cover {
+  width: var(--cover-size);
+}
+
+.experience--fixed .controller-panel {
+  width: min(92vw, 1060px);
+  grid-template-columns: minmax(var(--active-card-width), var(--active-card-width)) minmax(0, 1fr);
+  column-gap: 0.36rem;
+}
+
+.experience--fixed .animal-card {
+  width: 4.6rem;
+  flex-basis: 4.6rem;
+}
+
+.experience--fixed .animal-card--expanded.animal-card--active {
+  width: var(--active-card-width);
+  flex-basis: var(--active-card-width);
 }
